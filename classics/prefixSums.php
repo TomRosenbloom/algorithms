@@ -11,7 +11,10 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
         
         <h1>Prefix sums</h1>
         
-        <p></p>
+        <p>For an array of numbers, its prefix sums array, is
+        an array of the totals of all the preceding elements to the current element. For 
+        example, the prefix sums array of array 1,2,3,4,5 is 1,3,6,10,15.</p>
+        <p>Prefix sums are used in other algorithms e.g. maximum slice calculation.</p>
         
         <form method="POST">
             <input type="text" name="array" value="<?php echo $a; ?>" size="50">
@@ -28,54 +31,38 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
         
         function prefixSums($A){
             
-            $n = count($A);
-            $P = array_fill(1,$n,0);             
+            $n = count($A);            
             
-            for($i = 1; $i <= $n; $i++) {
-                if(isset($P[$i])){
-                    if(isset($P[$i-1])){ 
-                        $firstP = $P[$i-1]; 
-                    } else { 
-                        $firstP = 0; 
-                    }                
-                    $P[$i] = $firstP + $A[$i - 1];
-                }
+            // this is the super simple method that results in a prefix array of n+1 length
+            // because the first element is zero
+            
+            $P = array_fill(0,$n,0); 
+            
+            for($i = 1; $i <= $n; $i++) {                                  
+                    $P[$i] = $P[$i-1] + $A[$i - 1];                
             }
             
+            // this is the fiddly version where the length of P is exactly equal to A
+            // i.e. first element of P is same as first element of A 
+            // (although their indexes are still not the same i.e. A[0] = P[1] so
+            // wouldn't it just be easier to just remove the first element of P?)
+            // The fiddliness is due to dealing with PHP warnings for non-existing array indexes
+//            $P = array_fill(1,$n,0); 
+//            for($i = 1; $i <= $n; $i++) {
+//                if(isset($P[$i])){
+//                    if(isset($P[$i-1])){ 
+//                        $firstP = $P[$i-1]; 
+//                    } else { 
+//                        $firstP = 0; 
+//                    }                
+//                    $P[$i] = $firstP + $A[$i - 1];
+//                }
+//            }            
             return($P);
             
-        }
-        
+        }       
 
         
-        // re all the below about zero-index, in fact the codility example 
-        // has the 'extra' zero index in the prefix sum array so presumably this
-        // is actually standard and not something to worry about
-        
-        // mind fuck because of zero-indexing - how to avoid getting $P[0]=0?
-        // I can do that by startin the array fill at 1 but then I get
-        // a warning about array key P[0] not existing but then if I test for
-        // existence of same I get the same problem with P[i-1]!!
-        
-        
-//        for($i = $n-1; $i >= 1; $i--) {
-//            if(isset($A[$i+1])){ 
-//                $lastA = $A[$i+1]; 
-//            } else { 
-//                $lastA = 0; 
-//            }
-//            if(isset($P[$i+1])){ 
-//                $lastP = $P[$i+1]; 
-//            } else { 
-//                $lastP = 0; 
-//            }
-//            $P[$i] = $lastP + $lastA;
-//        }
-        // similar mind fuck but worse
-        // result should be (15,14,12,9,5)
-        
-        
-
         ?>
     </body>
 </html>
