@@ -13,8 +13,7 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
         
         <p>For an array of numbers, its prefix sums array, is
         an array of the totals of all the preceding elements to the current element. For 
-        example, the prefix sums array of array 1,2,3,4,5 is 1,3,6,10,15.</p>
-        <p>Prefix sums are used in other algorithms e.g. maximum slice calculation.</p>
+        example, the prefix sums array of [1,2,3,4,5] is [1,3,6,10,15].</p>
         
         <form method="POST">
             <input type="text" name="array" value="<?php echo $a; ?>" size="50">
@@ -34,7 +33,7 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
             $n = count($A);            
             
             // this is the super simple method that results in a prefix array of n+1 length
-            // because the first element is zero
+            // (n+1 because the first element is zero)
             
             $P = array_fill(0,$n,0); 
             

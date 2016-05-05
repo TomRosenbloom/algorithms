@@ -8,6 +8,11 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
         <title></title>
     </head>
     <body>
+        
+        <h1>Maximum array slice</h1>
+        
+        <p></p>
+        
         <form method="POST">
             <input type="text" name="array" value="<?php echo $a; ?>" size="50">
             <input type="submit" value="Submit">
