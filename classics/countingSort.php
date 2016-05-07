@@ -9,18 +9,23 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
     </head>
     <body>
         <h1>Counting sort</h1>
-        <p>Create an array of counters (an array that shows the number of occurrences
+        <p>Counting sort does not use comparison. 
+        Comparison sorts (e.g. insertion, selection and merge sort) have by definition a
+        minimum time complexity of O(nlogn), whereas counting sort has O(n+m)</p>
+        <p>Method: create an array of counters (an array that shows the number of occurrences
         of each number between 0 and the largest in the array). Then just read through 
         that array to create the ordered output array.</p>
         <p>Example: let's say the array to be sorted is [3,2,5,2]. The count array of this will 
         be [0,0,2,1,0,1], meaning there are zero 0's, zero 1's, two 2's, one 3 and so on to 
         the highest value found in the array. Each array key represents a value that might 
-        be found in A, and the corresponding value os the number of times it was found. 
+        be found in A, and the corresponding value is the number of times it was found. 
         To create the sorted array we iterate through the count array and for each 
         key value pair we write 'key' 'value' number of times into the output array.</p>
         <p>Note, this simple version of count sort is not 'stable' i.e. will not preserve
-            the order of similar values. See <a href="countingSortStable.php">countingSortStable</a> for the more complicated stable version</p>
-        <p>This looks like it ought to have a time complexity of O(n^2)
+            the order of similar values, hence is only suitable for sorting an integer array
+            and not where the integers are keys to other information. 
+            See <a href="countingSortStable.php">countingSortStable</a> for the more complicated stable version</p>
+        <p>The algorithm <i>looks</i> like it ought to have a time complexity of O(n^2)
         because of the nested loops, but is actually O(n+m) because the nesting 
         of those loops doesn't represent the product of every member of one 
         array combined with every member of another, rather they are a two stage 
