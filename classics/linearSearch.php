@@ -14,7 +14,7 @@ $x = filter_input(INPUT_POST, 'x',FILTER_SANITIZE_STRING);
         <p>Generically speaking, a linear search (for value x in array A) is a search where
         each array element in turn is compared against the given value. The naive solution is to
         iterate through the whole array with a for loop and return the index that matched the search value, 
-        but this is inneficient because each array element will be checked even after the value has been found - 
+        but this is inefficient because each array element will be checked even after the value has been found - 
         the best case will be the same as the worst case which will always be n, the length of the array. A better 
         solution is:
         <pre>
@@ -27,6 +27,13 @@ $x = filter_input(INPUT_POST, 'x',FILTER_SANITIZE_STRING);
         we determine whether the last value of A really was x. We know that x will be found in the last 
         array element since we put it there in step 1, so now we check the original value of the last element.
         </p>
+        <p>Linear search is usually inefficient since its complexity is O(n), whereas binary search for e.g. has O(log n). 
+        However it does have some advantages:</p>
+        <ul>
+            <li>input data does not need to be sorted</li>
+            <li>uses only equality comparison and not ordering comparison</li>
+            <li>requires only sequential access to data</li>
+        </ul>
 
         <?php
         // generate random array to search
