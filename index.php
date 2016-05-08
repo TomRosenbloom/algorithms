@@ -22,6 +22,10 @@
             <li><a href="classics/countingSort.php">Counting sort</a></li>
             <li><a href="classics/countingSortStable.php">Counting sort (stable)</a></li>
         </ul>
+        <h2>Searching</h2>
+        <ul>
+            <li><a href="classics/binarySearch.php">Binary search</a></li>
+        </ul>
         <h2>Codility exercises</h2>
         
     </body>
