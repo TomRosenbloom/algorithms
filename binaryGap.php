@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <meta charset="UTF-8">
@@ -11,6 +6,14 @@ and open the template in the editor.
     </head>
     <body>
         <?php
+        
+        // reading from right to left, if this is a zero (and not the first character)
+        // then start counting zeros
+        // counting zeros: 
+        //      count starts at zero; 
+        //      stop when you hit a one; 
+        //      advance a pointer;
+        // resume in main array at pointer position         
         
         $N = 972932;
         
@@ -35,7 +38,7 @@ and open the template in the editor.
                 }   
             } else {
                 echo "<br>one";
-                $leadingZero = false; // keep re-setting, no good!
+                $leadingZero = false; // keep re-setting, no good! I mean it works but re-assigns every time
                 if($current > $longest) { 
                     $longest = $current; 
                 }
@@ -44,24 +47,6 @@ and open the template in the editor.
         }
         
         echo "<br>longest: ".$longest;
-        
-        // reading from right to left, if this is a 1 (and not the first character)
-        // then start counting zeros
-        // counting zeros: 
-        //      count starts at zero; 
-        //      stop when you hit a one; 
-        //      advance a pointer;
-        // resume in main array at pointer position
-        
-        
-        
-        
-//        while($N >= 1){
-//            echo "<br>".base_convert($N,10,2);            
-//            //echo "<br>" . $N;
-//            if($N % 2 != 0) { $N--; }
-//            $N = $N/2;
-//        }
         
         ?>
     </body>
