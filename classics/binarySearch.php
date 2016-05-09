@@ -28,7 +28,7 @@ $x = filter_input(INPUT_POST, 'x',FILTER_SANITIZE_STRING);
         
         <?php
         
-        echo binarySearch($A, $x);
+        echo binarySearchRecursive($A, $x);
         
         function binarySearch($A, $x){
             
@@ -54,13 +54,55 @@ $x = filter_input(INPUT_POST, 'x',FILTER_SANITIZE_STRING);
                 } elseif($x < $A[$mid]){
                     $right = $mid - 1;
                 }
-                
+                // something I don't like about this implementation is that the 
+                // adjustment of left/right happens even after the item is found
+                // that can be avoided by breaking the loop (and making the L/R adjustment conditional)
+                // but I don't like that either
             }
             
             return $found;
             
         }   
         
+        function binarySearchRecursive($A, $x){
+            
+            $n = count($A);
+            
+            sort($A);
+            print_r($A);
+            echo "<br>";
+            
+            $found = -1;
+            
+            $left = 0;
+            $right = $n - 1;
+            
+            function doSearch($left, $right, $A, $x){
+                $mid = floor(($right + $left)/2);
+                echo "$left $mid $right $A[$left] $A[$mid] $A[$right]<br>";
+                
+                if($left > $right){
+                    return -1;
+                }
+                elseif($A[$mid] == $x){
+                    return $mid;
+                } else {
+                
+                    if($x > $A[$mid]){
+                        $left = $mid + 1;
+                    } elseif($x < $A[$mid]){
+                        $right = $mid - 1;
+                    } 
+                    return doSearch($left, $right, $A, $x);
+                }
+                                
+            }
+            
+            $found = doSearch($left, $right, $A, $x);
+            
+            return $found;
+            
+        }         
         ?>      
         
     </body>
