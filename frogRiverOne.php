@@ -14,8 +14,11 @@ function solution($A,$X) {
     // then stop when the array is empty - but this will cause array index not found warnings
     // (plus you keep having to count the array)
     
-    // the below scores 50% and 80%
-    // fails on single element, frog never crosses, and all leaves in same place
+    // the below scores 83% and 80%
+    // fails on single element, and large_permutation
+    // I can fix for single element, but that might be as good as I can get 
+    // with this methodology, at least I'm not
+    // going to improve the space complexity
     
     $n = count($A);
 
@@ -36,12 +39,20 @@ function solution($A,$X) {
         }
         $k++;
     }
-    
+    if(count($C) > 0){
+        return -1;
+    }
 } 
 
 
-$A = array(1,3,1,4,2,3,5,4);
-$X = 5;
+//$A = array(1,3,1,4,2,3,5,4);
+//$X = 5;
+
+$A = array(1);
+$X = 1;
+
+//$A = array(1,3,1,4,2,3,4,4);
+//$X = 5;
 
 print_r(solution($A,$X));
 
