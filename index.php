@@ -33,6 +33,7 @@
             <li><a href="oddOccurrencesInArray.php">Odd occurrences in array</a></li>
             <li><a href="frogJmp.php">Frog jump</a></li>
             <li><a href="tapeEquilibrium.php">Tape equilibrium</a></li>
+            <li><a href="permMissingElem.php">Missing element in permutation</a></li>
             <li><a href="triangle.php">Triangle</a></li>
             <li><a href="maxProfit.php">Max profit</a></li>
             <li><a href="minPerimeterRectangle.php">Minimum perimeter of rectangle</a></li>
