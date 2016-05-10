@@ -9,56 +9,53 @@ function solution($A) {
     // if we sum the entire array, then we can go through once keeping a running
     // total and subtracting that from the array sum
 
-    // this is really doing my head in - just can't get a 100% correct solution (got 83%)
-    // that works with +ve/-ve numbers and/or an array of two e.g. [1000,-1000]
-    // the problem is always around initialising the smallest difference
+    // having now googled this it seems like the was you make it deal with a two-member array
+    // is simply with a conditional trap - so maybe I'm not so dumb after all
     
-    // ...so let's try using prefix sums
-    
+    // the below gets 100%
     
     $N = count($A);
- 
-    $sum = 0;
+    
+
+    if($N == 2){
+        return abs($A[0] - $A[1]);
+    } 
+    
+    $leftSum = 0;
+    $rightSum = 0;
+
     foreach ($A as $value) {
-        $sum += $value;
+        $rightSum += $value;
     }
-    
-    
-    
-//    $firstPart = $A[0];
-//    $smallestDiff = abs(($sum - $A[0]) - $A[0]);
-//    for($i = 1; $i <= $N-1; $i++) {
-//        $firstPart += $A[$i];
-//        $secondPart = $sum - $firstPart;
-//        $diff = abs($secondPart - $firstPart);
-//        echo "$firstPart $secondPart $diff $smallestDiff<br>";
-//        if($diff < $smallestDiff){
-//            $smallestDiff = $diff;
-//        }
-//    } 
-    
-//    return $smallestDiff;
-    
-    // can do something with recursion to combine the two loops?
-    // so we make the sum as we go in and test the diffs as we back out...
-    
-//    function tapeEq($A,$N,$i,$sum){
-//        echo "$sum<br>";
-//        if($i == $N){
-//            return $sum;
-//        } else {
-//            $sum += $A[$i];
-//            $i++;            
-//            return tapeEq($A,$N,$i,$sum);
-//        }
-//    }
-//    
-//    return tapeEq($A,$N,0,0);    
-    
+      
+    $diff = PHP_INT_MAX; //     
+        
+    for($i = 0; $i <= $N - 2; $i++){
+              
+        $leftSum += $A[$i]; 
+        $rightSum -= $A[$i]; // you might think this test should be done last, 
+                             // but the problem explicitly states that the two segments
+                             // are non-empty
+                             // Note for same reason we only iterate to n - 2 elements
+             
+        $diff = min($diff,abs($rightSum - $leftSum));
+        
+        echo "$leftSum $rightSum $diff<br>";
+        
+        if($diff == 0){
+            return 0; 
+        }
+        
+    }
+
+    return $diff;
+       
 } 
 
 //$A = array(1000,-1000);
 $A = array(3,1,2,4,3);
+//$A = array(-3,1,2,-4,3);
+//$A = array(0, 1, 2, -5, 2);
 
 print_r(solution($A));
 
