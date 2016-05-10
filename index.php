@@ -26,7 +26,7 @@
         <ul>
             <li><a href="classics/binarySearch.php">Binary search</a></li>
         </ul>
-        <h2>Codility exercises</h2>
+        <h2>Codility exercises (and examples)</h2>
         <ul>
             <li><a href="binaryGap.php">Binary gap</a></li>
             <li><a href="cyclicRotation.php">Cyclic rotation</a></li>
@@ -34,6 +34,7 @@
             <li><a href="frogJmp.php">Frog jump</a></li>
             <li><a href="tapeEquilibrium.php">Tape equilibrium</a></li>
             <li><a href="permMissingElem.php">Missing element in permutation</a></li>
+            <li><a href="elementSwapTest.php">Counting elements example</a></li>
             <li><a href="triangle.php">Triangle</a></li>
             <li><a href="maxProfit.php">Max profit</a></li>
             <li><a href="minPerimeterRectangle.php">Minimum perimeter of rectangle</a></li>
