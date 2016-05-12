@@ -35,6 +35,8 @@
             <li><a href="tapeEquilibrium.php">Tape equilibrium</a></li>
             <li><a href="permMissingElem.php">Missing element in permutation</a></li>
             <li><a href="elementSwapTest.php">Counting elements example</a></li>
+            <li><a href="frogRiverOne.php">FrogRiverOne</a></li>
+            <li><a href="permCheck.php">PermCheck</a></li>
             <li><a href="triangle.php">Triangle</a></li>
             <li><a href="maxProfit.php">Max profit</a></li>
             <li><a href="minPerimeterRectangle.php">Minimum perimeter of rectangle</a></li>
