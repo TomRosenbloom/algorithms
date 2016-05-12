@@ -6,47 +6,41 @@ function solution($A) {
     // return the smallest positive integer (greater than 0) that does *not* appear in A
     // complexity O(N), O(N)
     // the array is at least one element in length and can include negative numbers
-    
     // there could be massive gaps, e.g. [-1000, 1, 2000] so certainly don't want to make
     // a counting array per se
-    
     // gaps generally are problematical, even if just '1' is not present as per [2,3]
-    
     // there could be large runs of duplicate numbers
     
-    // 
+    // had to cheat and google this one...
+    // fuck this is still only 80/75
+    // fails on:
+    // single element, got 1 expected 2
+    // large_2, shuffled sequence 1,2, ..., 100000 (without minus), got 100000 expected 100001
     
-    // count integers from 1 and stop when we find one that isn't there
-    // make an array of each unique value (doesn't need to count them)
+    $n = count($A);
     
-    // this solution gets 100/25 = 66%
-    // timed out on 'large' tests
-    // detected time complexity is O(n**2)
+    $occurrence = array_fill(1, $n, False);
     
-    $N = count($A);
-    $C = array();
-    
-    for($i = 0; $i <= $N-1; $i++){
-        if($A[$i] > 0){
-            $C[$A[$i]] = $A[$i]; 
+    for($i = 0; $i < $n; $i++){
+        echo "<br>$i $A[$i]<br>";
+        if($A[$i] > 0 && $A[$i] < $n){
+            $occurrence[$A[$i]] = True;
         }
-    } 
-    sort($C);
-    
-    $i = 1;
-    while($i < PHP_INT_MAX){
-        $value = array_shift($C);
-        if($value != $i){
-            return $i;
-        }
-        $i++;
     }
     
+    var_dump($occurrence);
+    echo "<br>";
+    
+    for ($i = 1; $i < $n+1; $i++){
+        if($occurrence[$i] === False){
+            return $i;
+        }
+    }
 } 
 
 //$A = array(1,3,6,4,1,2);
 //$A = array(-1000,1,2000);
-$A = array(2,3);
+$A = array(2);
 //$A = array(3,6,4,2);
 
 print_r(solution($A));
