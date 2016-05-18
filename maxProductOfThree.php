@@ -43,32 +43,11 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
             // sort descending, without keeping array keys
             rsort($A);
             
-//            $productOfFirstTwo = $A[0] * $A[1];
-//            $productOfLastTwo = $A[$N-2] * $A[$N-1];
-//
-//           
-//                
-//            if($productOfLastTwo > $productOfFirstTwo) {                   
-//
-//                return $A[$N-2] * $A[$N-1] * $A[0];
-//
-//            } else {
-//                return $A[0] * $A[1] * $A[2];
-//            }
-                
-                
-            // this (above) got 77% but fails for an array of all negative numbers eg [-5, -6, -4, -7, -10]
-            // gives -280, instead of -120
-            
-            // below is correct
-            
             $candidate1 = $A[0] * $A[1] * $A[2];
             $candidate2 = $A[$N-2] * $A[$N-1] * $A[0];
             
             return max($candidate1,$candidate2);
-                
-                
-             
+           
         }
            
         ?>
