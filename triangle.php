@@ -23,6 +23,11 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
         
         function triangle(array $A){
             
+            // the point of this one is that sorting the array makes it do-able with O(NlogN) complexity
+            // the sort is logN, and once the array is sorted we only have to examine consecutive elements
+            // we don't have to worry about duplicate values because the $A[$i] < $A[$i+1] + $A[$i+2] test
+            // will still hold true, e.g. 1,1,1 is a triangle, as is 2,2,1 but not 2,1,1
+            
             // reject array of less than 3
             if(count($A) < 3) { return 0; }
             
@@ -32,11 +37,6 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
             // for each element, examine this and next two elements
             for($i = 0; $i < count($A); $i++){
                 
-//                // reject any ero or negative values
-//                if($A[$i] <= 0 || $A[$i+1] <= 0 || $A[$i+2] <= 0){
-//                    return 0;
-//                }
-                
                 // if we have three values to try
                 if(isset($A[$i+1])&& isset($A[$i+2])){
                     
@@ -45,22 +45,8 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
                         return 0;
                     }                    
                     
-                    // look for possible triangles
-                    
-//                    // equilateral
-//                    if($A[$i] == $A[$i+1] && $A[$i] == $A[$i+2]){
-//                        echo "equilateral $A[$i] {$A[$i+1]} {$A[$i+2]}";
-//                        return 1;
-//                    }
-//                    
-//                    // isocellese
-//                    if(($A[$i]/$A[$i + 1] < 2) && ($A[$i+1] == $A[$i+2])){
-//                        echo "isocellese $A[$i] {$A[$i+1]} {$A[$i+2]}";
-//                        return 1;
-//                    }
-                    
+                    // look for possible triangles                   
                     if($A[$i] < $A[$i+1] + $A[$i+2]){    
-                        //echo "other $A[$i] {$A[$i+1]} {$A[$i+2]}";
                         echo "triangle $A[$i] {$A[$i+1]} {$A[$i+2]}<br>";
                         return 1;
                     }
