@@ -40,6 +40,7 @@
             <li><a href="missingInteger.php">MisingInteger (not complete)</a></li>
             <li><a href="passingCars.php">PassingCars</a></li>
             <li><a href="triangle.php">Triangle</a></li>
+            <li><a href="numberOfDiscIntersections.php">NumberOfDiscIntersections (not complete)</a></li>
             <li><a href="maxProfit.php">Max profit</a></li>
             <li><a href="minPerimeterRectangle.php">Minimum perimeter of rectangle</a></li>
             <li><a href="Count factors">Count factors</a></li>
