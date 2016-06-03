@@ -13,6 +13,8 @@
             <li><a href="classics/prefixSums.php">Prefix sums</a></li>
             <li><a href="classics/arrayReverse.php">Array reverse</a></li>
             <li><a href="classics/maximumSlice.php">Maximum array slice</a></li>
+            <li><a href="classics/stacks.php">Stack</a></li>
+            <li><a href="classics/queues.php">Queue</a></li>
         </ul>
         <h3>Sorting</h3>
         <ul>
