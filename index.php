@@ -45,7 +45,9 @@
             <li><a href="numberOfDiscIntersections.php">NumberOfDiscIntersections (not complete)</a></li>
             <li><a href="fish.php">Fish</a></li>
             <li><a href="brackets.php">Brackets</a></li>
+            <li><a href="nesting.php">Nesting</a></li>
             <li><a href="maxProfit.php">Max profit</a></li>
+            <li><a href="maxDoubleSliceSum.php">MaxDoubleSliceSum</a></li>
             <li><a href="minPerimeterRectangle.php">Minimum perimeter of rectangle</a></li>
             <li><a href="Count factors">Count factors</a></li>
             <li><a href="flags.php">Flags</a></li>
