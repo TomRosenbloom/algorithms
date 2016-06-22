@@ -26,7 +26,7 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
         
         echo "<br>".maxSlice($A);
         
-// I tihnk the key to understanding this algorith is properly understanding 
+// I think the key to understanding this algorithm is properly understanding 
 // the problem and what it is really about
 // Most importantly: the sum returned will always be zero or greater
 // (so in this form it doesn't work for an array of all negative numbers - there 
@@ -42,20 +42,52 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
         
         function maxSlice(array $A){
             
-            $maxEnding = 0;
-            $maxSlice = 0; // the running total
+            $currentSlice = 0; // running total for current candidate slice to a certain point
+            $maxSlice = 0; // the running total for max slice in whole array
             
             foreach($A as $a){
                 
-                echo "<br>$maxEnding $maxSlice";
+                echo "<br>$currentSlice $maxSlice";
                 echo "<br>$a";
                 
-                $maxEnding = max(0,$maxEnding + $a); // if the total of this element 
+                // add the current element to the current slice
+                // and keep the slice if the result is positive
+                // otherwise zero the current slice 
+                
+                // so, using example 5,-7,3,5,-2,4,-1
+                // first iteration, i = 1:
+                //   candidate slice is 0, add current element makes 5, we keep that as max slice
+                // i = 2:
+                //   candidate slice is 5, add -7 makes -2, so zero the candidate slice, keep max slice = 5
+                // i = 3
+                //   candidate slice is now 0, add 3 makes 3 which is greater than 0 
+                //   so keep that to see what effect the next element will have
+                //   (the slice total may grow and ultimately exceed the current max slice, 
+                //   on the other hand, if adding the next element will make the candidate
+                //   slice negative we will reset the current slice total to zero
+                //   and (hence) throw away that element since we know it can't contribute
+                //   to a maximum slice)
+                // i = 4 
+                //   candiate is 3, add 5 makes 8
+                //   so we keep that as our candiate, *and* we make it the new maximum slice
+                // i = 5
+                //   candidate is 8, add -2 makes 6
+                //   so the candidate slice has been reduced, but it is still positive so we stick with it and see what will happen next
+                // i = 6
+                //   candidate is 6, add 4 makes 10, largest so far, so update max slice
+                // i = 7 and last
+                //   candidate is 10, add -1 makes 9 which reduces the candidate, and so we keep the current max slice of 10
+                
+                // this is hard to grasp because it seems like we won't be considering all the possible 
+                // combinations of elements i.e. all the possible slices, but really that
+                // is what makes it clever - it automatically discards slices that have a negative total
+                
+                $currentSlice = max(0,$currentSlice + $a); // if the total of this element 
                                                      // plus current contiguous positive slice
                                                      // is positive then keep it, otherwise zero it
-                $maxSlice = max($maxSlice,$maxEnding);
+                $maxSlice = max($maxSlice,$currentSlice);
                 
-                echo "<br>$maxEnding $maxSlice<br>";
+                echo "<br>$currentSlice $maxSlice<br>";
             }
             
             return $maxSlice;
