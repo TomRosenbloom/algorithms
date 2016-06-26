@@ -24,9 +24,13 @@
             <li><a href="classics/countingSort.php">Counting sort</a></li>
             <li><a href="classics/countingSortStable.php">Counting sort (stable)</a></li>
         </ul>
-        <h2>Searching</h2>
+        <h3>Searching</h3>
         <ul>
             <li><a href="classics/binarySearch.php">Binary search</a></li>
+        </ul>
+        <h3>Prime numbers</h3>
+        <ul>
+            <li><a href="countFactors.php">Count factors/divisors</a></li>
         </ul>
         <h2>Codility exercises (and examples)</h2>
         <ul>

@@ -7,6 +7,8 @@
     <body>
         <?php
         
+        // nb, 'factor' and 'divisor' mean the same thing
+        
         print_r(countFactors(36)); 
         
         function countFactors($n){
