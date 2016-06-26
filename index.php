@@ -31,6 +31,7 @@
         <h3>Prime numbers</h3>
         <ul>
             <li><a href="countFactors.php">Count factors/divisors</a></li>
+            <li><a href="primalityTest.php">Primality test</a></li>
         </ul>
         <h2>Codility exercises (and examples)</h2>
         <ul>
