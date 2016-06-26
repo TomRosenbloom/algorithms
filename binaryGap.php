@@ -15,7 +15,7 @@
         //      advance a pointer;
         // resume in main array at pointer position         
         
-        $N = 972932;
+        $N = 1041;
         
         //$N = base_convert(483,10,2);
         $N = decbin($N); 
@@ -26,24 +26,23 @@
         $leadingZero = true;
         
         for($i = strlen($N)-1; $i >= 0; $i--){
-            
-            //echo $N[$i];
-            if($N[$i] === '0'){
-                if($leadingZero){
-                    echo "<br>leading zero";
-                } else {
-                    echo "<br>zero";
-                    $current++;
-                    $leadingZero = false;
-                }   
-            } else {
-                echo "<br>one";
-                $leadingZero = false; // keep re-setting, no good! I mean it works but re-assigns every time
-                if($current > $longest) { 
-                    $longest = $current; 
+         
+            if($N[$i] == '1'){ 
+                if($leadingZero){ // if leadingZero is true, meaning this is the first '1' encountered
+                    $leadingZero = false; // we are ready to start counting zeroes next time around
+                } else { // we have previously encountered a '1' and are in zero-counting mode, 
+                         // so this '1' means the end of a stretch oz zeroes (or a non-start)
+                    if($current > $longest) { // store the current zero count if it is the longest so far
+                        $longest = $current; 
+                    }
+                    $current = 0; // reset the zero count        
                 }
-                $current = 0;
+            } else { // this char is a zero
+                if(!$leadingZero){ // so provided we are in zero-counting mode (we have encountered a '1', and hence not looking at a leading zero)
+                    $current++; // increment the count
+                }
             }
+            
         }
         
         echo "<br>longest: ".$longest;
