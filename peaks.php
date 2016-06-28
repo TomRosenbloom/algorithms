@@ -1,30 +1,27 @@
 <?php
 
+// woohoo, 100/100 first time (took a while though)
+
 function solution($A) {  
     
-    function countFactors($n){
+    function findFactors($n){
+        // find the factors of n and return in an array
         $i = 1;
-        $count = 0;
-        while($i * $i < $n){ // any divisors less than square root of n will have a symmetric divisor 
-            if($n % $i == 0){ // this number is a divisor
-                $count += 2; // increment count by two, to include the symmetric divisor
+        $factors = array();
+        while($i <= $n/2){ 
+            if($n % $i == 0){
+                $factors[] = $i; 
             }
             $i++;
         }
-        if($i * $i == $n){ // finally see if final i is square root of n
-            $count++; // increment counter by one only
-        }
-        return $count;
+        $factors[] = $n;
+        return $factors;
     }
     
     // find peaks, then find number of factors
     // create a peaks array with 1 for peak, 0 for not peak
-    // for each factor divide into sub-arrays and see if they contain peaks - ?
-    // ...though these trial and error type solutions are rarely optimal
-    // (nb when the array has 12 elements, you can't have 6 groups of 2 elements 
-    // each containing peaks, right? Because the first and last elements can't be peaks)
     
-    // other way: look at the position of each peak, 
+    // look at the position of each peak, 
     // if position of first peak is greater than some factor, then we can reject
     // that factor as a potential block size
     
@@ -57,27 +54,62 @@ function solution($A) {
         }
     }
     
-    var_dump($P); echo "<br>";
+    echo implode(", ", $P) . "<br>";
     
-    $i = ($n/2)-1; // first candidate is the factor that will create groups of 2
-               // (rather the first candidate is one less than this, because groups of two can never all contain a peak)
+    $factors = findFactors($n);
 
-    while($i > 0){ 
-        if($n % $i == 0){ // a factor
-            echo "$i is a factor<br>";
-            // are there i peaks?
-            // what is the distribution of the peaks?
-            // this method must be too long-winded
-            // we are looking for O(N*log(log(N))) remember
+    echo implode(", ", $factors) . "<br>";
+    
+    // go through the array of factors
+    // each factor is a candidate for number of groups (and its symmetric factor will be the number in the group)
+    // actually let's say the factors represent the size of group
+    // we dismiss 1 and 2
+    // for each group size g
+    // read from P[0] to P[g-1]
+    // if no peak found, break
+    
+    for($k = 0; $k < count($factors); $k++){
+        if($factors[$k] > 2){
+            echo "group size " . $factors[$k] . "<br>";
+            $i = 0;
+            $p = true;
+            $s = false;
+            $g = $factors[$k];
+            while($p == true && $i < $n){
+                $limit = $i + $g;
+                $p = false;
+                while($i < $limit){
+                    echo "$i ";
+                    if($P[$i] == 1){
+                        $p = true;
+                    }
+                    $i++;
+                }
+                if($p == true){
+                    echo " peak!";
+                    $s = true;
+                } else {
+                    echo " no peak";
+                    $s = false;
+                }
+                echo "<br>$s<br>";
+            }
+            echo "$s<br>";
+            if($s){
+                echo "solution " . $factors[$k] . "<br>";
+                return $n/$factors[$k];
+            }
         }
-        $i--;
     }
 
+    return 0;
+    
 }
 
-$A = array(1,2,3,4,3,4,1,2,3,4,6,2);
+//$A = array(1,2,3,4,3,4,1,2,3,4,6,2);
+//$A = array(1,2,3,4,3,4,1,2,3,4,6,2,9);
 //$A = array(1,2,1,2,1,2,1,2,1,2,1,2);
-
+$A = array(1);
 
 var_dump(solution($A));
 
