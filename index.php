@@ -33,6 +33,7 @@
             <li><a href="countFactors.php">Count factors/divisors</a></li>
             <li><a href="primalityTest.php">Primality test</a></li>
             <li><a href="classics/sieveOfEratosthenes.php">Sieve of Eratosthenes</a></li>
+            <li><a href="classics/factorisation.php">Factorisation with sieve</a></li>
         </ul>
         <h2>Codility exercises (and examples)</h2>
         <ul>
