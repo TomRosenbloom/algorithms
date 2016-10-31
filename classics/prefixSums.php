@@ -11,9 +11,17 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
         
         <h1>Prefix sums</h1>
         
-        <p>For an array of numbers, its prefix sums array, is
+        <p>For an array of numbers, its prefix sums array is
         an array of the totals of all the preceding elements to the current element. For 
         example, the prefix sums array of [1,2,3,4,5] is [1,3,6,10,15].</p>
+        <p>For array A of length n:</p>
+        <ol>
+            <li>Make a new array P of length n + 1, filled with zeroes</li>
+            <li>Iterate over this array, starting at P[1] setting each P[i] = P[i - 1] + A[i - 1]</li>
+            <li>Return P</li>
+        </ol>
+        <p>Because the array is of length n + 1, and we start at p[1] we avoid any 
+            awkward 'index not found' errors. For neatness we could remove P[0] before returning P.</p>
         
         <form method="POST">
             <input type="text" name="array" value="<?php echo $a; ?>" size="50">
@@ -21,7 +29,8 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
         </form>        
         
         <?php
-                
+        // this is a rather Fereday-esque way of dealing with POST input...
+        // not very good
         if(isset($a)){
             $A = explode(",",$a);
             print_r(prefixSums($A));
@@ -31,32 +40,13 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
         function prefixSums($A){
             
             $n = count($A);            
-            
-            // this is the super simple method that results in a prefix array of n+1 length
-            // (n+1 because the first element is zero)
-            
+
             $P = array_fill(0,$n,0); 
             
             for($i = 1; $i <= $n; $i++) {                                  
                     $P[$i] = $P[$i-1] + $A[$i - 1];                
             }
-            
-            // this is the fiddly version where the length of P is exactly equal to A
-            // i.e. first element of P is same as first element of A 
-            // (although their indexes are still not the same i.e. A[0] = P[1] so
-            // wouldn't it just be easier to just remove the first element of P?)
-            // The fiddliness is due to dealing with PHP warnings for non-existing array indexes
-//            $P = array_fill(1,$n,0); 
-//            for($i = 1; $i <= $n; $i++) {
-//                if(isset($P[$i])){
-//                    if(isset($P[$i-1])){ 
-//                        $firstP = $P[$i-1]; 
-//                    } else { 
-//                        $firstP = 0; 
-//                    }                
-//                    $P[$i] = $firstP + $A[$i - 1];
-//                }
-//            }            
+                       
             return($P);
             
         }       
