@@ -16,22 +16,34 @@ function solution($n) {
     // second, you start from the square of each prime, since the lower multiples
     // will already have been marked - and the corollary of that is that you don't 
     // consider primes less than sqrt(n)
-    // Why is this? Because, taking n = 17, once we get to considering 5, we know 
-    // that all the multipliers of 5 below five have already been considererd, because
-    // well that's what we've been doing!
-    // If n = 21, you might think hang on what about 4 x 5 = 20, but the point is
-    // I think, we know that anything that is a multiple of 4 is also a multiple
-    // of 2
+    // Why is this? 
+    // Let's say n = 17, where sqrt is something slightly more than four, 
+    // so we would only consider starting with prime numbers less than four, 
+    // and rule out five and above. 
+    // Once we get to considering 5, we know that all the multipliers of 5 
+    // *below* 5 have already been considererd, because well that's what 
+    // we've been doing! So the first multiplier we would consider would be 5
+    // itself, but 5*5 will take us above 17.
+    // 
+    // (If n = 21, you might think hang on what about 4 x 5 = 20, that is, couldn't
+    // there be some multiplier of 5 other than the primes we've looked at, 
+    // but the point is I think, we know that anything that is a multiple of 4 
+    // is also a multiple of 2, and hence we have considered it)
     
     $sieve = array_fill(0,$n,true);
     
-    $sieve[0] = $sieve[1] = false;
+    $sieve[0] = $sieve[1] = false; // 0 and 1 are not primes
     
-    $i = 2; // i = the candidates we will test
+    $i = 2; // i = the candidates we will test and we start at 2, which we know *is* a prime
     while($i * $i < $n){ // for candidate values of i less than sqrt(n)
-        if($sieve[$i]){ // this ensure only prime values are considered, because composites will already have been set to false
+        if($sieve[$i] === true){ // if this is a prime
+        // as we go forward, this test ensures only prime values are considered, 
+        // because below we are going to set composites to false
             $k = $i * $i; // starting from square of i...
-            while($k <= $n){
+            // ...we are going to step through the array in steps of i, 
+            // eliminating each number we fall on, as it must be composite
+            // nb the first one will be a composite number since it is i squared
+            while($k <= $n){ 
                 $sieve[$k] = false; // this is a composite number, hence not prime
                 $k = $k + $i; // get the next element for this value of i
             }
@@ -39,8 +51,9 @@ function solution($n) {
         $i++;
     }
     
+    // display the primes
     foreach($sieve as $key => $val){
-        if($val == 1){
+        if($val === true){
             echo $key . " ";
         }
     }
