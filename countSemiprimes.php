@@ -121,8 +121,13 @@ function solution($n, $P, $Q) {
     
     // use the semiprimes array to count the number between each pair of array values
     for($i = 0; $i < count($P); $i++){
-        echo "<br>" . $SC[$Q[$i]] . " " . $SC[$P[$i]-1] . "<br>";
-        $M[$i] = $SC[$Q[$i]]-$SC[$P[$i]-1]; // we need the minus 1 fr the case where this is the point where the count increases
+        if($P[$i] == 0){ // cludge to avoid invalid index -1
+            $foo = 0;
+        } else {
+            $foo = $SC[$P[$i]-1];
+        }
+        echo "<br>" . $SC[$Q[$i]] . " " . $foo . "<br>";
+        $M[$i] = $SC[$Q[$i]]-$foo; // we need the minus 1 fr the case where this is the point where the count increases
     }
 
     
@@ -130,9 +135,9 @@ function solution($n, $P, $Q) {
     
 }
 
-$P = array(1,4,16);
-$Q = array(26,10,20);
-$n = 26;
+$P = array(0,0,0);
+$Q = array(4,4,4);
+$n = 4;
 
 echo solution(26,$P,$Q);
 
