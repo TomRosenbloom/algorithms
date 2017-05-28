@@ -34,6 +34,7 @@
             <li><a href="primalityTest.php">Primality test</a></li>
             <li><a href="classics/sieveOfEratosthenes.php">Sieve of Eratosthenes</a></li>
             <li><a href="classics/factorisation.php">Factorisation with sieve</a></li>
+            <li><a href="classics/euclideanAlgorithm.php">Euclidean algorithm</a></li>
         </ul>
         <h2>Codility exercises (and examples)</h2>
         <ul>
@@ -59,6 +60,7 @@
             <li><a href="Count factors">Count factors</a></li>
             <li><a href="peaks.php">Peaks</a></li>
             <li><a href="flags.php">Flags</a></li>
+            <li><a href="countSemiprimes.php">Count semiprimes</a></li>
             
         </ul>
         
