@@ -31,22 +31,7 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
             }
 
         </style>
-        
-        <script type="text/javascript">
-        $(document).ready(function(){ 
-            
-            $("section h1").addClass("active");
-            
-            //$("section h1").next("div").addClass("hide");
-            
-            $("section h1").next("div").hide();
-            
-            $("section h1").click(function(){
-                $(this).parent().find("div").slideToggle(400);
-            });
-            
-        });
-        </script>
+
         
     </head>
     <body>
@@ -130,42 +115,67 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
                 echo "<ul>";
 
                 for($i = 1; $i < $n; $i++){ // from the second element to the last
-                    echo "<li>Outer loop counter: $i </li>";
+                    echo "<li>Outer loop counter: $i ";
                     
                     $j = $i;
                     
                     echo "<dl>";
                     
-                    while(($j > 0 && $A[$j] < $A[$j-1])){
+                    if($A[$j] < $A[$j-1]){
+                    
+                        while($j > 0 && $A[$j] < $A[$j-1]){
 
-                        echo "<dt>Inner loop counter: $j </dt>";
+                            echo "<dt>Inner loop counter: $j </dt>";
+                            echo "<dd>";
+                            echo $A[$j] . " is less than " . $A[$j-1] . "<br>";
+                            foreach($A as $key=>$val){
+                                if($key === $j){
+                                    echo "<strong>" . $val . "</strong>";
+                                } else {
+                                    echo $val;
+                                }
+                            }
+                            echo "<br>";
+
+                            $temp = $A[$j-1];
+                            $A[$j-1] = $A[$j];
+                            $A[$j] = $temp;
+                            $j--;
+
+                            foreach($A as $key=>$val){
+                                if($key === $j){
+                                    echo "<strong>" . $val . "</strong>";
+                                } else {
+                                    echo $val;
+                                }
+                            }
+                            echo "<br></dd>";
+                        }
+                    
+                    } else {
+                        echo "<dt>No inner loop</dt>";
                         echo "<dd>";
-                        echo $A[$j] . " is less than " . $A[$j-1] . "<br>";
-                        foreach($A as $key=>$val){
-                            if($key === $j){
-                                echo "<strong>" . $val . "</strong>";
-                            } else {
-                                echo $val;
+                        echo $A[$i] . " is not less than " . $A[$i-1] . "<br>";
+                            foreach($A as $key=>$val){
+                                if($key === $i){
+                                    echo "<strong>" . $val . "</strong>";
+                                } else {
+                                    echo $val;
+                                }
                             }
-                        }
-                        echo "<br>";
-                        
-                        $temp = $A[$j-1];
-                        $A[$j-1] = $A[$j];
-                        $A[$j] = $temp;
-                        $j--;
-                        
-                        foreach($A as $key=>$val){
-                            if($key === $j){
-                                echo "<strong>" . $val . "</strong>";
-                            } else {
-                                echo $val;
+                            echo "<br>";
+                            foreach($A as $key=>$val){
+                                if($key === $i){
+                                    echo "<strong>" . $val . "</strong>";
+                                } else {
+                                    echo $val;
+                                }
                             }
-                        }
-                        echo "<br></dd>";
+                            echo "<br></dd>";
                     }
                     
                     echo "</dl>";
+                    echo "</li>";
                 }
                 
                 echo "</ul>";
@@ -175,12 +185,47 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
             }
 
             if(count($A) > 0) {
-                print_r(insertionSort($A));
+                //print_r(insertionSort($A));
+                insertionSort($A);
             }
 
             ?>
         </section>
         
         </main>
+        
+        <script type="text/javascript">
+        $(document).ready(function(){ 
+
+            $("section h1").addClass("active");
+            
+            //$("section h1").next("div").addClass("hide");
+            
+            $("section h1").next("div").hide();
+            
+            $("section h1").click(function(){
+                $(this).parent().find("div").slideToggle(400);
+            });
+
+            $("li").hide();
+
+//            $("li").each(function(index) {
+//                $(this).delay(400*index).fadeIn(300);
+//                $("dl").each(function(index){
+//                    $(this).delay(400*index).fadeIn(300);
+//                    $(this).delay(400).fadeOut(100);
+//                });
+//                $(this).delay(400).fadeOut(100);                
+//            });
+            
+            $("li, li dl").each(function(index) {
+                $(this).delay(400*index).fadeIn(300);
+
+                $(this).delay(400).fadeOut(100);                
+            });            
+            
+        });
+        </script>        
+        
     </body>
 </html>
