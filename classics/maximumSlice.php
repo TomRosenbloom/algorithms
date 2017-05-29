@@ -40,6 +40,36 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
 // slice sum (in case it turns out to be the maximum) (2) set the current slice sum 
 // to zero and start again
         
+// wait though... it's not, if the addition of the next element makes the contiguous sum
+// negative, but if it makes it less than the largest slice we've had previously - right?      
+// I think both actually: in the code below, we first test if adding this element to the 
+// current slice will make it negative, in which case we zero the current slice,
+// then we compare it with the maximum recorded slice so far
+        
+// wikipedia: "if we know the maximum subarray sum ending at position i, 
+// what is the maximum subarray sum ending at position i+1?"   
+
+// https://stackoverflow.com/questions/7943903/maximum-subarray-of-an-array-with-integers         
+// "...the maximal subarray (which must be a contiguous portion of the given array A) 
+// ending at position j either consists of the maximimal subarray ending at position j-1 
+// plus A[j], or is empty (this only occurs if A[j] < 0). In other words, we are asking 
+// whether the element A[j] is contributing positively to the current maximum sum ending 
+// at position j-1. If yes, include it in the maximal subarray so far; if not, don't."       
+
+// here is a very simple pseudocode:
+// 
+// start:
+//    max_so_far = 0
+//    max_ending_here = 0
+//
+//    loop i= 0 to n
+//      (i) max_ending_here = max_ending_here + a[i]
+//      (ii) if(max_ending_here < 0)
+//            max_ending_here = 0
+//      (iii) if(max_so_far < max_ending_here)
+//            max_so_far = max_ending_here
+//    return max_so_far        
+        
         function maxSlice(array $A){
             
             $currentSlice = 0; // running total for current candidate slice to a certain point

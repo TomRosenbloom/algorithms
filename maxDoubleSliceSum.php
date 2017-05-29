@@ -58,17 +58,27 @@ $A = array(3,2,6,-1,4,5,-1,2);
 //$A = array(1,2,3,4,5,6,7,8);
 //$A = array(-11, -53, -4, 38, 76, 80);
 // this test fails - gives 114, but should be 72, no 112 (0,1,5)
-// it fails because (at least) maxToArr[1] is 0 where it should be -53
+// NO! (1,2,5) gives 114!
 
-// well, apparently not - the above solution now gets 100/100
+// the above solution now gets 100/100
 // the crucial change was to make the sumTo and sumFrom arrays literally that
 // i.e. sums for the whole array, not the maximum up to this point
-// I got this by copying from CodeSays, but I really do not understand why 
-// it can pass given the above simple example which it appears to fail
-
-// why does it work at all, I mean given that the sums are for the whole array?
+// I got this by copying from CodeSays, but I don't really understand why it works
+// given that the sums are for the whole array?
 // something to do with the fact that what gets added to one side is taken from the other
-/// ...but basically I just don't have the intellect to understand this. Fuck.
+// ...but basically I just don't have the intellect to understand this. Fuck.
+
+// ok, we do the same thing in standard max slice i.e. comparing current sum
+// with zero, but in this case we don't do the secondary step of comparing that with
+// the current global max, we just store it in an array for later use
+// It's perfectly simple really - in each array slot, we have the max slice up to this
+// point (which may be more or less than the previous sum). It doesn't matter at 
+// all what the starting point of the slice was, but there is still something that
+// seems wrong and that is the fact that the sum at point i can be less than at
+// an earlier point i-x, so it seems like we will be losing sight of a previous
+// maximum, but the point is this:
+// any decrease in the sum *to* this point is balanced by an increase in the 
+// corresponding sum *from* this point
 
 
 
