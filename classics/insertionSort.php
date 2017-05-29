@@ -29,17 +29,17 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
             .active {
                 cursor: pointer;
             }
-            .show {
-            }
-            .hide {
-                display: none;
-            }
+
         </style>
         
         <script type="text/javascript">
         $(document).ready(function(){ 
             
             $("section h1").addClass("active");
+            
+            //$("section h1").next("div").addClass("hide");
+            
+            $("section h1").next("div").hide();
             
             $("section h1").click(function(){
                 $(this).parent().find("div").slideToggle(400);
@@ -56,7 +56,7 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
         
         <section id="description">
             <h1>Description</h1>
-            <div class="hide">
+            <div>
             <p>Traverse the array from left to right, comparing each element with the 
             preceding one.
             If the current element is less than the preceding one (i.e. they are in 
@@ -69,9 +69,9 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
             </div>
         </section>
         
-        <section id="complexity" class="closed">
+        <section id="complexity">
             <h1>Complexity</h1>
-            <div class="hide">           
+            <div>           
             <p>This requires two nested loops. The outer loop iterates over the array
             elements, the inner one drives the comparison and swapping of elements.
             This gives the algorithm quadratic complexity O(n^2). (NB 'big O' time complexity
@@ -82,9 +82,9 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
             </div>
         </section>
         
-        <section id="pseudoCode" class="closed">
+        <section id="pseudoCode">
             <h1>Pseudocode</h1>
-            <div class="hide">           
+            <div>           
             <section>
             <h1>Simplified</h1>
             <pre>
@@ -126,19 +126,49 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
             function insertionSort(array $A){
 
                 $n = count($A);
+                
+                echo "<ul>";
 
-                for($i = 1; $i < $n; $i++){ // from the second element to the last, indexes 1-9
+                for($i = 1; $i < $n; $i++){ // from the second element to the last
+                    echo "<li>Outer loop counter: $i </li>";
+                    
                     $j = $i;
+                    
+                    echo "<dl>";
+                    
                     while(($j > 0 && $A[$j] < $A[$j-1])){
 
-                        echo "j $j ";
+                        echo "<dt>Inner loop counter: $j </dt>";
+                        echo "<dd>";
+                        echo $A[$j] . " is less than " . $A[$j-1] . "<br>";
+                        foreach($A as $key=>$val){
+                            if($key === $j){
+                                echo "<strong>" . $val . "</strong>";
+                            } else {
+                                echo $val;
+                            }
+                        }
+                        echo "<br>";
+                        
                         $temp = $A[$j-1];
                         $A[$j-1] = $A[$j];
                         $A[$j] = $temp;
                         $j--;
-                        echo implode("",$A)."<br>";
+                        
+                        foreach($A as $key=>$val){
+                            if($key === $j){
+                                echo "<strong>" . $val . "</strong>";
+                            } else {
+                                echo $val;
+                            }
+                        }
+                        echo "<br></dd>";
                     }
+                    
+                    echo "</dl>";
                 }
+                
+                echo "</ul>";
 
                 return $A;
 
