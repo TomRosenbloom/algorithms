@@ -30,6 +30,10 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
                 cursor: pointer;
             }
 
+            .inner {
+                margin-left: 20px;
+            }
+            
         </style>
 
         
@@ -101,6 +105,7 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
                 <input type="text" name="array" value="<?php echo $a; ?>">
                 <input type="submit" value="Sort">
             </form>
+            <div id="animation"></div>
             <?php
             $A = array();
 
@@ -112,21 +117,26 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
 
                 $n = count($A);
                 
-                echo "<ul>";
+                echo "<div id=\"container\">";
 
                 for($i = 1; $i < $n; $i++){ // from the second element to the last
-                    echo "<li>Outer loop counter: $i ";
+                    
+                    
+
                     
                     $j = $i;
                     
-                    echo "<dl>";
                     
                     if($A[$j] < $A[$j-1]){
                     
                         while($j > 0 && $A[$j] < $A[$j-1]){
-
-                            echo "<dt>Inner loop counter: $j </dt>";
-                            echo "<dd>";
+                            
+                            echo "<div class=\"outer\">";
+                            echo "<span>Outer loop counter: <span class=\"counter\">$i</span> </span>";
+                            echo "<div class=\"inner\">";
+                    
+                            echo "<div class=\"innerCount\">Inner loop counter: <span class=\"counter\">$j</span> </div>";
+                            echo "<div class=\"sortAction\">";
                             echo $A[$j] . " is less than " . $A[$j-1] . "<br>";
                             foreach($A as $key=>$val){
                                 if($key === $j){
@@ -149,36 +159,51 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
                                     echo $val;
                                 }
                             }
-                            echo "<br></dd>";
+                            echo "<br></div>";
+                            
+                            echo "</div>";
+                            echo "</div>";                             
+                            
                         }
+                        
+                       
                     
                     } else {
-                        echo "<dt>No inner loop</dt>";
-                        echo "<dd>";
-                        echo $A[$i] . " is not less than " . $A[$i-1] . "<br>";
-                            foreach($A as $key=>$val){
-                                if($key === $i){
-                                    echo "<strong>" . $val . "</strong>";
-                                } else {
-                                    echo $val;
-                                }
-                            }
-                            echo "<br>";
-                            foreach($A as $key=>$val){
-                                if($key === $i){
-                                    echo "<strong>" . $val . "</strong>";
-                                } else {
-                                    echo $val;
-                                }
-                            }
-                            echo "<br></dd>";
-                    }
+                        
+                        echo "<div class=\"outer\">";
+                        echo "<span>Outer loop counter: $i </span>";
+                        echo "<div class=\"inner\">";
                     
-                    echo "</dl>";
-                    echo "</li>";
+                        echo "<div class=\"innerCount\">No inner loop</div>";
+                        echo "<div class=\"sortAction\">";
+                        echo $A[$i] . " is not less than " . $A[$i-1] . "<br>";
+                        
+                        foreach($A as $key=>$val){
+                            if($key === $i){
+                                echo "<strong>" . $val . "</strong>";
+                            } else {
+                                echo $val;
+                            }
+                        }
+                        echo "<br>";
+                        foreach($A as $key=>$val){
+                            if($key === $i){
+                                echo "<strong>" . $val . "</strong>";
+                            } else {
+                                echo $val;
+                            }
+                        }
+                        echo "<br></div>";
+                            
+                        echo "</div>";
+                        echo "</div>";  
+                    
+                    }
+                  
+
                 }
                 
-                echo "</ul>";
+                echo "</div>";
 
                 return $A;
 
@@ -207,24 +232,45 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
                 $(this).parent().find("div").slideToggle(400);
             });
 
-            $("li").hide();
-
-//            $("li").each(function(index) {
-//                $(this).delay(400*index).fadeIn(300);
-//                $("dl").each(function(index){
-//                    $(this).delay(400*index).fadeIn(300);
-//                    $(this).delay(400).fadeOut(100);
-//                });
-//                $(this).delay(400).fadeOut(100);                
-//            });
-            
-            $("li, li dl").each(function(index) {
-                $(this).delay(400*index).fadeIn(300);
-
-                $(this).delay(400).fadeOut(100);                
-            });            
+//            $(".outer").hide();
+//
+//            
+//            $(".outer").each(function(index) {
+//                $(this).delay(300*index).toggle(0);
+//                $(this).delay(200).toggle(0);
+//
+//                // this is basically working, but want just the things that change to toggle
+//                // and not the whole div, which is really disconcerting 
+//                // actually it's difficult to see how to achieve that if the processing is done 
+//                // on the server side and the animation is done in the client...
+//                // if the sort was done with javascript it would be straightforward
+//                // (that would also avoid the problems integrsting this stuff into WP)
+//                
+//            });           
             
         });
+        
+        var A = document.getElementsByName("array")[0].value.split('');
+        
+        console.log(insertionSort(A));
+        
+        function insertionSort(A){
+            
+            for(var i = 1; i < A.length; i++){
+                
+                var j = i;
+                
+                while(j > 0 && (A[j] < A[j-1])){                    
+                    var temp = A[j-1]; 
+                    A[j-1] = A[j];
+                    A[j] = temp;
+                    j--;
+                }
+                
+            }
+            
+            return A;
+        }
         </script>        
         
     </body>
