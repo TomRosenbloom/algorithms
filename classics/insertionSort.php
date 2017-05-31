@@ -34,6 +34,10 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
                 margin-left: 20px;
             }
             
+            
+            .current {
+                font-weight: bold;
+            }
         </style>
 
         
@@ -101,120 +105,12 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
         
         <section id="implementation">
             <h1>Implementation</h1>
-            <form method="POST">
-                <input type="text" name="array" value="<?php echo $a; ?>">
+            <form method="POST" id="theForm">
+                <input type="text" name="array" value="<?php echo $a; ?>" id="sortThis">
                 <input type="submit" value="Sort">
             </form>
             <div id="animation"></div>
-            <?php
-            $A = array();
 
-            if(isset($a)){
-                $A = str_split(strval($a));            
-            }
-
-            function insertionSort(array $A){
-
-                $n = count($A);
-                
-                echo "<div id=\"container\">";
-
-                for($i = 1; $i < $n; $i++){ // from the second element to the last
-                    
-                    
-
-                    
-                    $j = $i;
-                    
-                    
-                    if($A[$j] < $A[$j-1]){
-                    
-                        while($j > 0 && $A[$j] < $A[$j-1]){
-                            
-                            echo "<div class=\"outer\">";
-                            echo "<span>Outer loop counter: <span class=\"counter\">$i</span> </span>";
-                            echo "<div class=\"inner\">";
-                    
-                            echo "<div class=\"innerCount\">Inner loop counter: <span class=\"counter\">$j</span> </div>";
-                            echo "<div class=\"sortAction\">";
-                            echo $A[$j] . " is less than " . $A[$j-1] . "<br>";
-                            foreach($A as $key=>$val){
-                                if($key === $j){
-                                    echo "<strong>" . $val . "</strong>";
-                                } else {
-                                    echo $val;
-                                }
-                            }
-                            echo "<br>";
-
-                            $temp = $A[$j-1];
-                            $A[$j-1] = $A[$j];
-                            $A[$j] = $temp;
-                            $j--;
-
-                            foreach($A as $key=>$val){
-                                if($key === $j){
-                                    echo "<strong>" . $val . "</strong>";
-                                } else {
-                                    echo $val;
-                                }
-                            }
-                            echo "<br></div>";
-                            
-                            echo "</div>";
-                            echo "</div>";                             
-                            
-                        }
-                        
-                       
-                    
-                    } else {
-                        
-                        echo "<div class=\"outer\">";
-                        echo "<span>Outer loop counter: $i </span>";
-                        echo "<div class=\"inner\">";
-                    
-                        echo "<div class=\"innerCount\">No inner loop</div>";
-                        echo "<div class=\"sortAction\">";
-                        echo $A[$i] . " is not less than " . $A[$i-1] . "<br>";
-                        
-                        foreach($A as $key=>$val){
-                            if($key === $i){
-                                echo "<strong>" . $val . "</strong>";
-                            } else {
-                                echo $val;
-                            }
-                        }
-                        echo "<br>";
-                        foreach($A as $key=>$val){
-                            if($key === $i){
-                                echo "<strong>" . $val . "</strong>";
-                            } else {
-                                echo $val;
-                            }
-                        }
-                        echo "<br></div>";
-                            
-                        echo "</div>";
-                        echo "</div>";  
-                    
-                    }
-                  
-
-                }
-                
-                echo "</div>";
-
-                return $A;
-
-            }
-
-            if(count($A) > 0) {
-                //print_r(insertionSort($A));
-                insertionSort($A);
-            }
-
-            ?>
         </section>
         
         </main>
@@ -231,25 +127,66 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
             $("section h1").click(function(){
                 $(this).parent().find("div").slideToggle(400);
             });
+           
 
-//            $(".outer").hide();
-//
-//            
-//            $(".outer").each(function(index) {
-//                $(this).delay(300*index).toggle(0);
-//                $(this).delay(200).toggle(0);
-//
-//                // this is basically working, but want just the things that change to toggle
-//                // and not the whole div, which is really disconcerting 
-//                // actually it's difficult to see how to achieve that if the processing is done 
-//                // on the server side and the animation is done in the client...
-//                // if the sort was done with javascript it would be straightforward
-//                // (that would also avoid the problems integrsting this stuff into WP)
-//                
-//            });           
-            
+            $("#theForm").on('submit',function(e){
+               e.preventDefault();
+               var A = $("#sortThis").val().split('');
+               
+                for(var i = 1; i < A.length; i++){
+
+                    var j = i;
+
+                    while(j > 0 && (A[j] < A[j-1])){                    
+                        var temp = A[j-1]; 
+                        A[j-1] = A[j];
+                        A[j] = temp;
+                        j--;
+                        
+//                        var numberContainer = document.createElement("span");
+//                        var numberChar = document.createTextNode(A[j]);
+//                        numberContainer.appendChild(numberChar);
+//                        document.getElementById("animation").appendChild(numberContainer);
+                        
+                        var arrayContainer = document.createElement("div");
+                        for(var k = 0; k < A.length; k++){
+                            var numberChar = document.createTextNode(A[k]);
+                            var numberContainer = document.createElement("span");
+                            if(k == j){
+                                numberContainer.className = "current";
+                            }
+                            numberContainer.appendChild(numberChar);
+                            arrayContainer.appendChild(numberContainer);
+                        }
+                        document.getElementById("animation").appendChild(arrayContainer);
+//                        var arrayChars = document.createTextNode(A);
+//                        arrayContainer.appendChild(arrayChars);
+//                        document.getElementById("animation").appendChild(arrayContainer);
+                        
+//                        //$("#animation").empty();
+//                        $("#animation").append("<div>"+A+"</div>");
+//                        // this works, but what doesn't seem to work is emptying the div
+//                        // and then appending, or rather it maybe does work but it happens
+//                        // too quickly and I can't create a delay without creating a queue (?)
+//                        // NB if I try to use setTimeout, then I will just get n of the final A,
+//                        // rendered instantaneously, but after the specified delay i.e. it 
+//                        // doesn't work in the way you might expect
+//                        $("#animation").queue(function(){
+//                            $(this).append("<div>"+A+"</div>");
+//                        })
+console.log(A);
+                    }
+
+                }               
+               
+            });
+
+
         });
         
+
+
+
         var A = document.getElementsByName("array")[0].value.split('');
         
         console.log(insertionSort(A));
