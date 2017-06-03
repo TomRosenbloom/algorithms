@@ -37,6 +37,7 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
             
             .current {
                 font-weight: bold;
+                color: red;
             }
         </style>
 
@@ -129,10 +130,33 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
             });
            
 
-            $("#theForm").on('submit',function(e){
-               e.preventDefault();
-               var A = $("#sortThis").val().split('');
+            $("#theForm").on('submit',function(e){ 
                
+                e.preventDefault();
+                
+                var A = $("#sortThis").val().split(''); // initialise A the array to be sorted
+            
+                var animSteps = [];
+                
+//                var arrayContainer = document.createElement("div");
+//                arrayContainer.setAttribute("id","arrayContainer");
+//                for(var k = 0; k < A.length; k++){
+//                    var numberChar = document.createTextNode(A[k]);
+//                    var numberContainer = document.createElement("span");
+////                    if(k == j){
+////                        numberContainer.className = "current";
+////                    }
+//                    numberContainer.appendChild(numberChar);
+//                    arrayContainer.appendChild(numberContainer);
+//                }
+//                document.getElementById("animation").appendChild(arrayContainer);
+
+var test = [];
+var B = [];
+for(var k = 0; k < A.length; k++){ 
+    B[k] = A[k];
+}
+test.push(B); 
                 for(var i = 1; i < A.length; i++){
 
                     var j = i;
@@ -143,42 +167,81 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
                         A[j] = temp;
                         j--;
                         
-//                        var numberContainer = document.createElement("span");
-//                        var numberChar = document.createTextNode(A[j]);
-//                        numberContainer.appendChild(numberChar);
-//                        document.getElementById("animation").appendChild(numberContainer);
+var B = [];
+for(var k = 0; k < A.length; k++){ 
+    B[k] = A[k];
+}
+test.push(B);  
+  
+//test.push(A[j]);
+// if I push j (or A[j]) then I get different vals outside the loop
+// but not if I push A, then I just get n copies of the final value
+// because the difference between 'primitives' that store an actual value versus 
+// 'reference types' that store the memory location of an object
+// 
+
+                        //console.log(A); // this does what I expect
+                        animSteps.push(A); // so why does this just push n copies of the final sorted array?
+                        // because it is a reference to A that is pushed, not A itself
+                        // I've tried a few SO suggestions of 'cloning' and such but can't get any progress on this
                         
-                        var arrayContainer = document.createElement("div");
-                        for(var k = 0; k < A.length; k++){
-                            var numberChar = document.createTextNode(A[k]);
-                            var numberContainer = document.createElement("span");
-                            if(k == j){
-                                numberContainer.className = "current";
-                            }
-                            numberContainer.appendChild(numberChar);
-                            arrayContainer.appendChild(numberContainer);
-                        }
-                        document.getElementById("animation").appendChild(arrayContainer);
-//                        var arrayChars = document.createTextNode(A);
-//                        arrayContainer.appendChild(arrayChars);
+                        
+//                        console.log($("#arrayContainer span:eq("+j+")").text());
+//                        $("#arrayContainer span:eq("+j+")").className = "current";
+                                                
+//                        var arrayContainer = document.createElement("div");
+//                        for(var k = 0; k < A.length; k++){
+//                            var numberChar = document.createTextNode(A[k]);
+//                            var numberContainer = document.createElement("span");
+//                            if(k == j){
+//                                numberContainer.className = "current";
+//                            }
+//                            numberContainer.appendChild(numberChar);
+//                            arrayContainer.appendChild(numberContainer);
+//                        }
 //                        document.getElementById("animation").appendChild(arrayContainer);
+
+                        //animSteps.push(arrayContainer);
                         
-//                        //$("#animation").empty();
-//                        $("#animation").append("<div>"+A+"</div>");
-//                        // this works, but what doesn't seem to work is emptying the div
-//                        // and then appending, or rather it maybe does work but it happens
-//                        // too quickly and I can't create a delay without creating a queue (?)
-//                        // NB if I try to use setTimeout, then I will just get n of the final A,
-//                        // rendered instantaneously, but after the specified delay i.e. it 
-//                        // doesn't work in the way you might expect
-//                        $("#animation").queue(function(){
-//                            $(this).append("<div>"+A+"</div>");
-//                        })
-console.log(A);
+                        // this just doesn't work - 
+                        // it only works when you push the current A out to the DOM right away
+                        // otherwise you just get the first A over and over
+                        // The difference with the thing I got from SO is that the animatin steps
+                        // are functions with some params that identify specific elements
+                        // and the functions act on something that is already there in the DOM
+                        // Ah now wait, is *that* simply the answer? I need to have something
+                        // already there in the DOM and can manipulate that from within my loop?
+
                     }
 
-                }               
-               
+                } 
+                
+                var animation = function(){
+                    // Execute all iteration functions one after another
+                    var i = 0;
+                    if (animSteps.length) { // end condition of recursion
+                        setTimeout(function(){
+                            //animSteps.splice(0,1)[0](); // the curved brackets cause execution of the function
+                                                          // stored in the animSteps array
+                                                          // splice(0,1) will return and remove the first element
+                                                          // ...and the square brackets?
+                            console.log(animSteps[i]);
+                            animation();
+                        }, 250);
+                    }
+                };
+                
+                //animation();
+for(var k = 0; k < test.length; k++){ 
+    console.log(test[k]);
+}
+// right, finally I have created an array of each step in the sorting
+// (I had to create a completely new array at each step, and not just by B = A, but by using 
+// a loop to construct each B from the primitive values of each A[n]. B = A would just copy 
+// the value of the reference)
+// Don't think this actually achieves much though since I don't really have a way of showing 
+// the swap that takes place, i.e. highlighting the current element, the one it is compared with and so on
+
             });
 
 
@@ -186,28 +249,28 @@ console.log(A);
         
 
 
-
-        var A = document.getElementsByName("array")[0].value.split('');
-        
-        console.log(insertionSort(A));
-        
-        function insertionSort(A){
-            
-            for(var i = 1; i < A.length; i++){
-                
-                var j = i;
-                
-                while(j > 0 && (A[j] < A[j-1])){                    
-                    var temp = A[j-1]; 
-                    A[j-1] = A[j];
-                    A[j] = temp;
-                    j--;
-                }
-                
-            }
-            
-            return A;
-        }
+//
+//        var A = document.getElementsByName("array")[0].value.split('');
+//        
+//        console.log(insertionSort(A));
+//        
+//        function insertionSort(A){
+//            
+//            for(var i = 1; i < A.length; i++){
+//                
+//                var j = i;
+//                
+//                while(j > 0 && (A[j] < A[j-1])){                    
+//                    var temp = A[j-1]; 
+//                    A[j-1] = A[j];
+//                    A[j] = temp;
+//                    j--;
+//                }
+//                
+//            }
+//            
+//            return A;
+//        }
         </script>        
         
     </body>
