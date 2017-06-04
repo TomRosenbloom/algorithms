@@ -7,41 +7,28 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
         <meta charset="UTF-8">
         <title>Insertion sort</title>
         
+        <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../include/jquery-animatedSort.css">        
+        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+        <script src="../include/jquery.animatedsort.js"></script>
         
-        <style type="text/css">
-            main {
-                width: 800px;
-            }
-            h1 {
-                margin-bottom: 0;
-                font-family: Gill Sans, sans-serif;
-            }
-            section div {
-                overflow: hidden; /* prevents slideToggle jump */
-            }
-            p {
-                font-family: Times New Roman, serif;
-            }
-            form {
-                margin-top: 10px;
-            }
-            .active {
-                cursor: pointer;
-            }
-
-            .inner {
-                margin-left: 20px;
-            }
-            
-            
-            .current {
-                font-weight: bold;
-                color: red;
-            }
-        </style>
+        <script>
+        $( document ).ready(function() {
+            $("#insertion-list").animatedSort({
+                stepTime: 600,
+                highlightColor: "teal",
+                listType: {bottom: 0, top: 100, length: 12},
+                sortedColor: "#e4701d",
+                sortAlgorithm: "insertion",
+                animationTrigger: {event: "click", selector: "#insertion-sort"},
+                resetTrigger: {event: "click", selector: "#insertion-reset"}
+            });        
+        });
+        </script>
 
         
+     
     </head>
     <body>
         <main>
@@ -49,7 +36,7 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
         <h1>Insertion sort</h1>
         
         <section id="description">
-            <h1>Description</h1>
+            <h2>Description</h2>
             <div>
             <p>Traverse the array from left to right, comparing each element with the 
             preceding one.
@@ -64,7 +51,7 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
         </section>
         
         <section id="complexity">
-            <h1>Complexity</h1>
+            <h2>Complexity</h2>
             <div>           
             <p>This requires two nested loops. The outer loop iterates over the array
             elements, the inner one drives the comparison and swapping of elements.
@@ -77,10 +64,10 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
         </section>
         
         <section id="pseudoCode">
-            <h1>Pseudocode</h1>
+            <h2>Pseudocode</h2>
             <div>           
             <section>
-            <h1>Simplified</h1>
+            <h3>Simplified</h3>
             <pre>
     For each element of array A (except the first element)
         while this element is less than the preceding element
@@ -88,7 +75,7 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
             </pre>
             </section>
             <section>
-            <h1>Detailed</h1>
+            <h3>Detailed</h3>
             <pre>
     A is the (zero-indexed) array to be sorted
     n is the number of elements in A
@@ -105,173 +92,23 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
         </section>
         
         <section id="implementation">
-            <h1>Implementation</h1>
-            <form method="POST" id="theForm">
-                <input type="text" name="array" value="<?php echo $a; ?>" id="sortThis">
-                <input type="submit" value="Sort">
-            </form>
-            <div id="animation"></div>
+            <h2>Implementation</h2>
+
+            
+            <div id="insertion">
+                <div id="insertion-list">
+                   <h3>Insertion Sort</h3>
+                    <div class="buttons">
+                        <button type="button" class="btn btn-primary" id="insertion-sort">Sort</button>
+                        <button type="button" class="btn" id="insertion-reset">Reset</button>
+                   </div>
+                </div>
+            </div>            
+            
 
         </section>
         
-        </main>
-        
-        <script type="text/javascript">
-        $(document).ready(function(){ 
-
-            $("section h1").addClass("active");
-            
-            //$("section h1").next("div").addClass("hide");
-            
-            $("section h1").next("div").hide();
-            
-            $("section h1").click(function(){
-                $(this).parent().find("div").slideToggle(400);
-            });
-           
-
-            $("#theForm").on('submit',function(e){ 
-               
-                e.preventDefault();
-                
-                var A = $("#sortThis").val().split(''); // initialise A the array to be sorted
-            
-                var animSteps = [];
-                
-//                var arrayContainer = document.createElement("div");
-//                arrayContainer.setAttribute("id","arrayContainer");
-//                for(var k = 0; k < A.length; k++){
-//                    var numberChar = document.createTextNode(A[k]);
-//                    var numberContainer = document.createElement("span");
-////                    if(k == j){
-////                        numberContainer.className = "current";
-////                    }
-//                    numberContainer.appendChild(numberChar);
-//                    arrayContainer.appendChild(numberContainer);
-//                }
-//                document.getElementById("animation").appendChild(arrayContainer);
-
-var test = [];
-var B = [];
-for(var k = 0; k < A.length; k++){ 
-    B[k] = A[k];
-}
-test.push(B); 
-                for(var i = 1; i < A.length; i++){
-
-                    var j = i;
-
-                    while(j > 0 && (A[j] < A[j-1])){                    
-                        var temp = A[j-1]; 
-                        A[j-1] = A[j];
-                        A[j] = temp;
-                        j--;
-                        
-var B = [];
-for(var k = 0; k < A.length; k++){ 
-    B[k] = A[k];
-}
-test.push(B);  
-  
-//test.push(A[j]);
-// if I push j (or A[j]) then I get different vals outside the loop
-// but not if I push A, then I just get n copies of the final value
-// because the difference between 'primitives' that store an actual value versus 
-// 'reference types' that store the memory location of an object
-// 
-
-                        //console.log(A); // this does what I expect
-                        animSteps.push(A); // so why does this just push n copies of the final sorted array?
-                        // because it is a reference to A that is pushed, not A itself
-                        // I've tried a few SO suggestions of 'cloning' and such but can't get any progress on this
-                        
-                        
-//                        console.log($("#arrayContainer span:eq("+j+")").text());
-//                        $("#arrayContainer span:eq("+j+")").className = "current";
-                                                
-//                        var arrayContainer = document.createElement("div");
-//                        for(var k = 0; k < A.length; k++){
-//                            var numberChar = document.createTextNode(A[k]);
-//                            var numberContainer = document.createElement("span");
-//                            if(k == j){
-//                                numberContainer.className = "current";
-//                            }
-//                            numberContainer.appendChild(numberChar);
-//                            arrayContainer.appendChild(numberContainer);
-//                        }
-//                        document.getElementById("animation").appendChild(arrayContainer);
-
-                        //animSteps.push(arrayContainer);
-                        
-                        // this just doesn't work - 
-                        // it only works when you push the current A out to the DOM right away
-                        // otherwise you just get the first A over and over
-                        // The difference with the thing I got from SO is that the animatin steps
-                        // are functions with some params that identify specific elements
-                        // and the functions act on something that is already there in the DOM
-                        // Ah now wait, is *that* simply the answer? I need to have something
-                        // already there in the DOM and can manipulate that from within my loop?
-
-                    }
-
-                } 
-                
-                var animation = function(){
-                    // Execute all iteration functions one after another
-                    var i = 0;
-                    if (animSteps.length) { // end condition of recursion
-                        setTimeout(function(){
-                            //animSteps.splice(0,1)[0](); // the curved brackets cause execution of the function
-                                                          // stored in the animSteps array
-                                                          // splice(0,1) will return and remove the first element
-                                                          // ...and the square brackets?
-                            console.log(animSteps[i]);
-                            animation();
-                        }, 250);
-                    }
-                };
-                
-                //animation();
-for(var k = 0; k < test.length; k++){ 
-    console.log(test[k]);
-}
-// right, finally I have created an array of each step in the sorting
-// (I had to create a completely new array at each step, and not just by B = A, but by using 
-// a loop to construct each B from the primitive values of each A[n]. B = A would just copy 
-// the value of the reference)
-// Don't think this actually achieves much though since I don't really have a way of showing 
-// the swap that takes place, i.e. highlighting the current element, the one it is compared with and so on
-
-            });
-
-
-        });
-        
-
-
-//
-//        var A = document.getElementsByName("array")[0].value.split('');
-//        
-//        console.log(insertionSort(A));
-//        
-//        function insertionSort(A){
-//            
-//            for(var i = 1; i < A.length; i++){
-//                
-//                var j = i;
-//                
-//                while(j > 0 && (A[j] < A[j-1])){                    
-//                    var temp = A[j-1]; 
-//                    A[j-1] = A[j];
-//                    A[j] = temp;
-//                    j--;
-//                }
-//                
-//            }
-//            
-//            return A;
-//        }
-        </script>        
+        </main>    
         
     </body>
 </html>
