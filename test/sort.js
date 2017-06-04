@@ -32,13 +32,14 @@ var SORT = function(type, list, selector){
         str.push("</table>");
         container.html(str.join("")); // convert the array into a string
         
-        console.log(str);
+        //console.log(str);
         
     };
      
     // for each pair of elements that need to be swapped, first do the swap in the array,
     // and also push onto the animSteps array a group of three functions that will 
     // perform the swap animation
+    // (one function per array element i.e. this creates three rows in the array for each swap)
     // This is something I don't really like about this method - it removes the swapping
     // part of the algorithm out into this function which then does something else 
     // that is not strictly related
@@ -59,8 +60,9 @@ var SORT = function(type, list, selector){
         });
     };
 
+    // so this is my little innovation - a function that does the animation of the swap only
+    // leaivng the actual swap in the algorithm
     var animSwap = function(list, i1, i2) {
-
         // Add 3 functions for each swapping action:
         // 1. highlight elements, 2. swap, 3. remove highlight
         animSteps.push(function(){
@@ -83,7 +85,16 @@ var SORT = function(type, list, selector){
             setTimeout(function(){
                 animSteps.splice(0,1)[0](); // the curved brackets cause execution of the function
                                             // splice(0,1) will return and remove the first element
-                                            /// ...and the square brackets?
+                                            // The square brackets are there because of course splice returns
+                                            // an array (the clue's in the name!), just in this case it
+                                            // is a single element array, but still we need [0] to get
+                                            // the function
+                                            // NB the reason for using splice is otherwise you'd need to 
+                                            // maintain a counter, to get animSteps[i]();
+                                            // mind you this is only a matter of using
+                                            // for(var i in animSteps)
+                                            // ah but this is recursive, so it really is easier doing it this way
+                                            // (this is a very LISP-like way of doing things)
                 animation();
             }, 250);
         }
@@ -123,6 +134,6 @@ var SORT = function(type, list, selector){
 
 // Usage:
 var s = new SORT("bubblesort", [5,8,2,4,1,9,7,3,0,6], "#container");
-console.log(s.sorted);    //the sorted array
+//console.log(s.sorted);    //the sorted array
 
 });
