@@ -8,32 +8,4 @@ and open the template in the editor.
     Author     : Tom
 */
 
-main {
-    width: 800px;
-}
-h1 {
-    margin-bottom: 0;
-    font-family: Gill Sans, sans-serif;
-}
-section div {
-    overflow: hidden; /* prevents slideToggle jump */
-}
-p {
-    font-family: Times New Roman, serif;
-}
-form {
-    margin-top: 10px;
-}
-.active {
-    cursor: pointer;
-}
 
-.inner {
-    margin-left: 20px;
-}
-
-
-.current {
-    font-weight: bold;
-    color: red;
-}

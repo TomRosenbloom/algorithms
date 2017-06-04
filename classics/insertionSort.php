@@ -7,8 +7,9 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
         <meta charset="UTF-8">
         <title>Insertion sort</title>
         
-        <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="../include/jquery-animatedSort.css">        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">        
+        <link rel="stylesheet" type="text/css" href="../include/jquery-animatedSort.css">                
+        <link rel="stylesheet" href="../include/local.css">
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
         <script src="../include/jquery.animatedsort.js"></script>
@@ -31,20 +32,22 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
      
     </head>
     <body>
-        <main>
+        <div class="container">
+            
             
         <h1>Insertion sort</h1>
         
         <section id="description">
             <h2>Description</h2>
             <div>
-            <p>Traverse the array from left to right, comparing each element with the 
-            preceding one.
-            If the current element is less than the preceding one (i.e. they are in 
-            the wrong order), swap it with the previous one, then repeat, comparing 
+            <p>Traverse the array from left to right, considering each element in turn.
+            If the current element (element n) is less than the preceding one (i.e. they are in 
+            the wrong order relative to each other), swap it with the preceding one. 
+            Keep repeating this operation, comparing 
             our current element in its new position with the one before it.
-            Do this until the previous element is less than the current one, 
-            or we reach the end of the array.</p>
+            Do this until we meet a preceding element that is less than the current one, 
+            or we reach the start of the array. Then move on to the next element following
+            the one we started with (element n+1).</p>
             <p>So elements that are out of their correct order are moved left until
             they reach their correct position.</p>
             </div>
@@ -69,7 +72,7 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
             <section>
             <h3>Simplified</h3>
             <pre>
-    For each element of array A (except the first element)
+    For each element of array A
         while this element is less than the preceding element
             swap it with the preceding element
             </pre>
@@ -108,7 +111,7 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
 
         </section>
         
-        </main>    
+        </div>    
         
     </body>
 </html>
