@@ -39,6 +39,13 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
         <section id="description">
             <h2>Description</h2>
             <div>
+                <p>
+                    The basic idea of bubble sort is to make multiple passes over an array - as many as
+                    the array has elements - and in each pass go through the array comparing the
+                    value in each position with the value following it, and swapping them
+                    round if they are out of order i.e. the second is smaller than the first.
+                    This causes larger values to 'bubble' their way to the end, ultimately sorting the array.
+                </p>
                 <p>The simplest possible implementation is this:</p>
                 <pre>
     A is an array of length n
