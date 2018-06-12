@@ -5,7 +5,7 @@
         <title></title>
     </head>
     <body>
-        
+
         <h1>Algorithms</h1>
         <h2>Classics</h2>
         <h3>Array manipulation</h3>
@@ -18,7 +18,8 @@
         </ul>
         <h3>Sorting</h3>
         <ul>
-            <li><a href="classics/insertionSort.php">Insertion sort</a></li>
+            <li><a href="classics/bubbleSort.php">Bubble sort</a></li>
+            <li><a href="#">Insertion sort</a></li>
             <li><a href="classics/selectionSort.php">Selection sort</a></li>
             <li><a href="classics/mergeSort.php">Merge sort</a></li>
             <li><a href="classics/countingSort.php">Counting sort</a></li>
@@ -61,8 +62,8 @@
             <li><a href="peaks.php">Peaks</a></li>
             <li><a href="flags.php">Flags</a></li>
             <li><a href="countSemiprimes.php">Count semiprimes</a></li>
-            
+
         </ul>
-        
+
     </body>
 </html>

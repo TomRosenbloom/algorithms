@@ -16,46 +16,46 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
         </form>
         <?php
         $A = array();
-        
+
         if(isset($a)){
-            $A = str_split(strval($a));            
+            $A = str_split(strval($a));
         }
-        
+
         if(count($A) > 0) {
             selectionSort($A);
         }
-        
-        
+
+
         function selectionSort(array $A){
-            
+
             $n = count($A);
-            
+
             for($i = 0; $i < $n; $i++){
-                
+
                 $minimal = $i;
-                
+
                 for($j = $i+1; $j < $n; $j++){
-                    
+
                     if($A[$j] < $A[$minimal]){
-                        
+
                         $minimal = $j;
-                        
+
                     }
-                                  
+
                 }
-                
+
                 $temp = $A[$i];
                 $A[$i] = $A[$minimal];
-                $A[$minimal] = $temp;                
-                
+                $A[$minimal] = $temp;
+
                 echo "<br>".implode("",$A);
             }
-            
+
             return $A;
-            
+
         }
 
-    
+
         ?>
     </body>
 </html>
