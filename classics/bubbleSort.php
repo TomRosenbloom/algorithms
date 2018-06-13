@@ -58,7 +58,7 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
                 <ul>
                     <li>
                         Add a flag to record whether any swapping took place in each pass
-                        of the inner loop. If not then the array must be sorted.
+                        of the inner loop. If not then the array must now be in order so we can halt the process.
                     </li>
                     <li>
                         At the end of each pass of the inner loop the largest item has been 'bubbled'
@@ -90,13 +90,18 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
                     <li>
                         The outer loop is from 1 to n, whilst the inner loop is from 0 to n-1.
                         That's because the purpose of the outer loop index is just to iterate
-                        n times, whilst the index variable of the inner loop is used to
+                        n times, whilst in the inner loop the index variable is used to
                         reference array elements so must start at zero
                     </li>
                     <li>
                         The new bound is set at j-1 because it must record the last point at
-                        which a swap <em>didn't</em> happen, whereas at this point a swap has
+                        which a swap <em>didn't</em> happen, whereas at this point in the algorithm a swap has
                         just happened.
+                    </li>
+                    <li>Implementing this in PHP I found that on the first pass through the array
+                        (i = 1) in the final iteration of that pass (j = bound) there is no value A[j+1], because
+                        we've gone beyond the end of the array. A quick fix for this is to add a conditional
+                        to test that A[j+1] is set, but there must surely be a better way...
                     </li>
                 </ul>
             </div>
