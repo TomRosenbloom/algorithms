@@ -35,70 +35,62 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
         <div class="container">
 
 
-        <h1>Insertion sort - [this is actually bubble sort?]</h1>
-        <p>Yes this is bubble sort,not insertion sort</p>
+        <h1>Insertion sort</h1>
 
         <section id="description">
             <h2>Description</h2>
             <div>
-            <p>Traverse the array from left to right, considering each element in turn.
-            If the current element (element n) is less than the preceding one (i.e. they are in
-            the wrong order relative to each other), swap it with the preceding one.
-            Keep repeating this operation, comparing
-            our current element in its new position with the one before it.
-            Do this until we meet a preceding element that is less than the current one,
-            or we reach the start of the array. Then move on to the next element following
-            the one we started with (element n+1).</p>
-            <p>So elements that are out of their correct order are moved left until
-            they reach their correct position.</p>
-            </div>
-        </section>
+                <p>
+                    Insertion sort is often likened to the way you sort a hand of playing cards. You
+                    insert each item into its correct position in a sorted portion
+                    to the left, which builds up as you progress.
+                    Each item moves backwards towards the the start of the list until it
+                    arrives at its correct position.
+                </p>
+                <p>
+                    Following insertion, the items to the right of the inserted
+                    member must be shifted to the right. That sounds like it should be
+                    difficult and computationally expensive, but actually the
+                    shift is not done as a single separate action, rather it happens automatically as
+                    part of the comparison/insertion process. Furthermore, a shift
+                    is a cheaper operation than a swap - you simply change the value of
+                    the index var rather than having to move anything around (via a temporary
+                    var, in most languages).
+                </p>
+                <p>
+                    So there's an outer loop that iterates over the array and an inner loop
+                    that performs the comparison and insertion/shifting for each element.
+                    In the inner loop, the process is to compare the element with the item
+                    to its left, and if that item is smaller shift it to the right, then
+                    consider the next item to the left. If the leftward item is smaller, then
+                    stop and insert.
+                </p>
+                <p>
+                    Because there's two nested loops, the complexity is O(n2), same as bubble sort.
+                    If we compare insertion sort with un-optimised bubble sort then it
+                    will be on average quicker because it inherently ignores already sorted
+                    items. Comparing it with the optimised 'short bubble', it will (I think)
+                    still be generally quicker because the mechanism of shifting and insertion is
+                    cheaper than complete swapping of elements.
+                </p>
+                The algorithm:
+                <p>
+                <pre>
+    A is a zero-indexed array of length n
 
-        <section id="complexity">
-            <h2>Complexity</h2>
-            <div>
-            <p>This requires two nested loops. The outer loop iterates over the array
-            elements, the inner one drives the comparison and swapping of elements.
-            This gives the algorithm quadratic complexity O(n^2). (NB 'big O' time complexity
-            means "fewer than or the same as". In this case, for each iteration of the
-            outer loop there will be at most the same number of iterations of the inner
-            loop but usually fewer). Quadratic complexity is ok for small jobs but
-            disastrous for larger ones.</p>
-            </div>
-        </section>
-
-        <section id="pseudoCode">
-            <h2>Pseudocode</h2>
-            <div>
-            <section>
-            <h3>Simplified</h3>
-            <pre>
-    For each element of array A
-        while this element is less than the preceding element
-            swap it with the preceding element
-            </pre>
-            </section>
-            <section>
-            <h3>Detailed</h3>
-            <pre>
-    A is the (zero-indexed) array to be sorted
-    n is the number of elements in A
-
-    for i = 1 to n
-        j = i
-        while A[j] > A[j-1] and j > 0
-            swap A[j] and A[j-1]
-            j = j-1
-
-            </pre>
-            </section>
+    for i = 1 to n-1
+        value = A[i]
+        position = i
+        while position > 0 and value < A[position-1]
+            A[position] = A[position-1]
+            position = position-1
+        A[position] = value
+                </pre>
             </div>
         </section>
 
         <section id="implementation">
-            <h2>Implementation</h2>
-
-
+            <h2>Animation</h2>
             <div id="insertion">
                 <div id="insertion-list">
                    <h3>Insertion Sort</h3>

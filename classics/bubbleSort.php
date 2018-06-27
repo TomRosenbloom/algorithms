@@ -40,11 +40,11 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
             <h2>Description</h2>
             <div>
                 <p>
-                    The basic idea of bubble sort is to make multiple passes over an array - as many as
-                    the array has elements - and in each pass go through the array comparing the
-                    value in each position with the value following it, and swapping them
-                    round if they are out of order i.e. the second is smaller than the first.
-                    This causes larger values to 'bubble' their way to the end, ultimately sorting the array.
+                    The basic idea of bubble sort is to make multiple passes over an array,
+                    in each pass comparing the
+                    value in each position with the value following it, and swapping the two
+                    round if they are in the wrong order i.e. the second is smaller than the first.
+                    This causes larger values to 'bubble' their way to the end, which will (eventually) sort the array.
                 </p>
                 <p>The simplest possible implementation is this:</p>
                 <pre>
@@ -63,8 +63,8 @@ $a = filter_input(INPUT_POST, 'array',FILTER_SANITIZE_STRING);
                     <li>
                         At the end of each pass of the inner loop the largest item has been 'bubbled'
                         to the end, so "at the end of the i-th pass, the last i numbers are already in place".
-                        So the inner loop can be made progressively shorter by not going over already
-                        sorted elements at the end
+                        So the inner loop can be made progressively shorter by not going back over already
+                        sorted elements at the end of the array
                     </li>
                     <li>
                         You can combine the two ideas above for a further optimisation by

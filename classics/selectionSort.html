@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Insertion sort</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="../include/jquery-animatedSort.css">
+        <link rel="stylesheet" href="../include/local.css">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+        <script src="../include/jquery.animatedsort.js"></script>
+
+        <script>
+        $( document ).ready(function() {
+            $("#selection-list").animatedSort({
+                stepTime: 600,
+                highlightColor: "teal",
+                listType: {bottom: 0, top: 100, length: 12},
+                sortedColor: "#e4701d",
+                sortAlgorithm: "selection",
+                animationTrigger: {event: "click", selector: "#selection-sort"},
+                resetTrigger: {event: "click", selector: "#selection-reset"}
+            });
+        });
+        </script>
+
+
+
+    </head>
+    <body>
+        <div class="container">
+
+            <h1>Selection sort</h1>
+
+            <section id="description">
+                <h2>Description</h2>
+                <p>
+                    Selection sort has complexity O(n<sup>2</sup>),
+                    but is an improvement on bubble sort because it makes just one
+                    comparison and swap for each pass through the array.
+                </p>
+                <p>
+                    The basic process is, on each pass, to find the smallest element and
+                    swap it with the first unsorted element (or do it the other way round
+                    i.e. start from the end, work backwards and swap the largest element).
+                </p>
+                <pre>
+    A is a zero-indexed array of length n
+
+    for i = 0 to n-1
+        smallest = i
+        for j = i+1 to n-1
+            if A[j] < A[i]
+                smallest = j
+        if smallest != i
+            swap A[i] with A[smallest]
+                </pre>
+                <p>
+                    <ul>
+                        <li>Do a loop with index i of n iterations (starting at 0 and ending at n-1 because array is zero indexed)</li>
+                        <li>Take i as candidate for 'position of smallest value'</li>
+                        <li>Do a second loop with index j from next position after i to n-1</li>
+                        <li>Compare the value at position j with the value at 'position of smallest value'</li>
+                        <li>If the value at position j is smaller, set 'position of smallest value' = j</li>
+                        <li>When the j loop is complete, if 'position of smallest value' has changed, swap element at that position with element at i</li>
+                    </ul>
+                </p>
+                <p>So at the end of each i, the smallest remaining element is at i, and the elements up to and including i have been sorted</p>
+            </section>
+
+            <section id="implementation">
+                <h2>Animation</h2>
+                <div id="selection">
+                    <div id="selection-list">
+                       <h3>Insertion Sort</h3>
+                        <div class="buttons">
+                            <button type="button" class="btn btn-primary" id="selection-sort">Sort</button>
+                            <button type="button" class="btn" id="selection-reset">Reset</button>
+                       </div>
+                    </div>
+                </div>
+            </section>
+    </body>
+</html>

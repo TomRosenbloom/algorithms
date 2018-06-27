@@ -19,8 +19,8 @@
         <h3>Sorting</h3>
         <ul>
             <li><a href="classics/bubbleSort.php">Bubble sort</a></li>
-            <li><a href="#">Insertion sort</a></li>
-            <li><a href="classics/selectionSort.php">Selection sort</a></li>
+            <li><a href="classics/selectionSort.html">Selection sort</a></li>
+            <li><a href="classics/insertionSort.php">Insertion sort</a></li>
             <li><a href="classics/mergeSort.php">Merge sort</a></li>
             <li><a href="classics/countingSort.php">Counting sort</a></li>
             <li><a href="classics/countingSortStable.php">Counting sort (stable)</a></li>
